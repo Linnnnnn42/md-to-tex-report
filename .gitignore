@@ -1,0 +1,15 @@
+# LaTeX build leftovers (scripts/build-report.sh keeps only report.tex and report.pdf)
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.toc
+*.xdv
+*.synctex.gz
+
+# Editor and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

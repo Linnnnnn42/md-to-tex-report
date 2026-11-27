@@ -1,0 +1,97 @@
+name: Build report
+
+# When to build. Edit the branches and paths to choose your own triggers.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "examples/**"
+      - "report/**"
+      - "scripts/**"
+      - ".github/workflows/build-report.yml"
+      # The outputs committed back by this workflow must not trigger another build.
+      - "!**/outputs/**"
+  pull_request:
+    branches: [main]
+    paths:
+      - "examples/**"
+      - "report/**"
+      - "scripts/**"
+      - ".github/workflows/build-report.yml"
+      - "!**/outputs/**"
+  # Manual run from the Actions tab, optionally for another report directory.
+  workflow_dispatch:
+    inputs:
+      report_dirs:
+        description: "Space-separated report directories to build"
+        required: false
+        default: "examples"
+
+env:
+  # Report directories built on push and pull_request. Each gets its own <dir>/outputs/.
+  REPORT_DIRS: ${{ inputs.report_dirs || 'examples' }}
+  PANDOC_VERSION: "3.11"
+  # On pushes to main, commit <dir>/outputs/report.{tex,pdf} back to the branch.
+  # Pull requests never commit; they only upload the artifact.
+  COMMIT_OUTPUTS: "true"
+
+concurrency:
+  group: build-report-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install pandoc and TeX Live
+        run: bash scripts/install-deps-ubuntu.sh
+
+      - name: Build reports
+        run: |
+          # Stamp the PDF with the commit time instead of "now", so unchanged
+          # sources give an identical PDF and no needless output commit.
+          export SOURCE_DATE_EPOCH="$(git log -1 --format=%ct)"
+          export FORCE_SOURCE_DATE=1
+          for dir in $REPORT_DIRS; do
+            bash scripts/build-report.sh "$dir"
+          done
+
+      - name: Collect outputs
+        if: always()
+        run: |
+          mkdir -p artifact
+          for dir in $REPORT_DIRS; do
+            if [ -d "$dir/outputs" ]; then
+              mkdir -p "artifact/$dir"
+              cp -r "$dir/outputs/." "artifact/$dir/"
+            fi
+          done
+
+      - name: Upload report artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: report-${{ github.sha }}
+          path: artifact/
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Commit outputs to the branch
+        if: github.event_name == 'push' && env.COMMIT_OUTPUTS == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for dir in $REPORT_DIRS; do
+            git add "$dir/outputs/"
+          done
+          if git diff --cached --quiet; then
+            echo "Outputs unchanged; nothing to commit."
+          else
+            git commit -m "Build report outputs for ${GITHUB_SHA::7}"
+            git push
+          fi

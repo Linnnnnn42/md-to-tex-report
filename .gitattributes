@@ -1,0 +1,5 @@
+# Keep LF endings so the scripts and sources work on Linux CI runners.
+* text=auto eol=lf
+*.pdf binary
+*.png binary
+*.jpg binary

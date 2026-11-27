@@ -1,0 +1,602 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+\documentclass[
+  12pt,
+  a4paper,
+]{report}
+\usepackage{xcolor}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{2}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage{setspace}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{longtable,booktabs,array}
+\usepackage{caption}
+\captionsetup[table]{skip=6pt}
+\newcounter{none} % for unnumbered tables
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+% fallback for those not using the hyperref driver hyperxmp:
+\makeatletter
+\@ifundefined{xmpquote}{\newcommand{\xmpquote}[1]{#1}}{}
+\makeatother
+\hypersetup{
+  pdftitle={COMP2043.GRP Interim Group Report},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={blue},
+  urlcolor={blue},
+  pdfcreator={LaTeX via pandoc}}
+% PDF bookmarks (the reader's sidebar outline): open at chapter level when the PDF opens.
+\hypersetup{bookmarksopen=true, bookmarksopenlevel=0}
+
+\title{COMP2043.GRP Interim Group Report}
+\author{}
+\date{}
+% Running heads such as "Chapter 3. Requirements", as in the original report.
+\pagestyle{headings}
+
+\begin{document}
+\pagenumbering{roman}
+\begin{titlepage}
+\centering
+\IfFileExists{figures/team-logo.png}{%
+  \includegraphics[width=0.6\linewidth]{figures/team-logo.png}%
+}{%
+  \fbox{\parbox[c][3cm][c]{0.6\linewidth}{\centering\small Logo placeholder: \texttt{\detokenize{figures/team-logo.png}}}}%
+}\par
+\vspace{1.5cm}
+{\LARGE\bfseries COMP2043.GRP Interim Group Report\par}
+\vspace{0.5cm}
+Submitted: \textbf{DD/MM/YYYY}\par
+\vspace{1.5cm}
+{\Large\bfseries Project Title\par}
+\vspace{0.3cm}
+Supervised by \textbf{Supervisor Name}\par
+\vspace{1.5cm}
+{\large\bfseries Team N\par}
+\vspace{0.3cm}
+\textbf{Member Name - 00000000 - username}\par
+\textbf{Member Name - 00000000 - username}\par
+\vfill
+School of Computer Science\par
+University of Nottingham\par
+\end{titlepage}
+\setcounter{page}{2}
+
+{
+\hypersetup{linkcolor=blue}
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+\setstretch{1.25}
+\cleardoublepage
+\pagenumbering{arabic}
+\chapter{Introduction}\label{introduction}
+
+Opening paragraph: one-paragraph overview of the problem the project
+tackles and what the team will deliver.
+
+\textbf{Keywords:} keyword one, keyword two, keyword three
+
+\section{Current Situation}\label{current-situation}
+
+Describe the project's starting point, the stakeholder situation, and
+how the team settled on the project direction.
+
+\section{Motivations and Objectives}\label{motivations-and-objectives}
+
+Explain why the problem matters, then state the project's main
+objectives.
+
+\section{Logo Design}\label{logo-design}
+
+Describe the team logo and what its visual elements represent.
+
+\begin{figure}
+\centering
+\fbox{\parbox[c][4cm][c]{0.8\linewidth}{\centering Placeholder: team logo\\[0.5em]\footnotesize\texttt{\detokenize{figures/logo.png}}}}
+\caption{Placeholder: team logo}
+\end{figure}
+
+\section{Structure of the Report}\label{structure-of-the-report}
+
+Briefly introduce how the report is organised, then summarise each
+chapter:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Introduction:} One-line summary of this chapter.
+\item
+  \textbf{Background:} One-line summary of this chapter.
+\item
+  \textbf{Requirements:} One-line summary of this chapter.
+\item
+  \textbf{Implementation:} One-line summary of this chapter.
+\item
+  \textbf{User Interface and Prototype:} One-line summary of this
+  chapter.
+\item
+  \textbf{Time Plan:} One-line summary of this chapter.
+\item
+  \textbf{Summary and Evaluation:} One-line summary of this chapter.
+\end{itemize}
+
+\section{Abbreviations}\label{abbreviations}
+
+The following abbreviations are used in this report frequently:
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Abbreviation & Meaning \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+ABC & Full term for ABC \\
+XYZ & Full term for XYZ \\
+\end{longtable}
+}
+
+\chapter{Background}\label{background}
+
+\section{Background Introduction}\label{background-introduction}
+
+Outline what this chapter covers.
+
+\section{Development of Driverless
+Cars}\label{development-of-driverless-cars}
+
+Summarise the industry's progress and key players, with citations
+{[}1{]}.
+
+\section{Level of Autonomous Driving}\label{level-of-autonomous-driving}
+
+Explain the SAE levels of driving automation and give examples for each.
+
+\section{Testing for Driverless Cars}\label{testing-for-driverless-cars}
+
+\subsection{Introduction}\label{introduction-1}
+
+Introduce the main categories of testing for driverless cars.
+
+\subsection{Software Testing}\label{software-testing}
+
+Describe software testing approaches used in self-driving systems.
+
+\subsection{Simulation Testing}\label{simulation-testing}
+
+Describe simulation-based testing and its benefits.
+
+\subsection{Navigation Layer Testing}\label{navigation-layer-testing}
+
+Describe what the navigation layer does and why it needs testing.
+
+\section{Metamorphic Testing For Driverless
+Cars}\label{metamorphic-testing-for-driverless-cars}
+
+\subsection{Oracle Problem}\label{oracle-problem}
+
+Define the test oracle and explain the oracle problem.
+
+\subsection{Concept of Metamorphic
+Testing}\label{concept-of-metamorphic-testing}
+
+Explain metamorphic testing and metamorphic relations, with a short
+example.
+
+\subsection{Test Case for Autonomous
+Driving}\label{test-case-for-autonomous-driving}
+
+Summarise existing work on generating test cases for autonomous driving.
+
+\section{Existing Systems that Address Similar
+Problems}\label{existing-systems-that-address-similar-problems}
+
+Summarise real-world incidents and existing systems related to the
+problem.
+
+\section{Summary of the Chapter}\label{summary-of-the-chapter}
+
+Recap this chapter and introduce the next one.
+
+\chapter{Requirements}\label{requirements}
+
+\section{Purpose of Project}\label{purpose-of-project}
+
+State what the system is for and who its target users are.
+
+\section{Requirements Elicitation}\label{requirements-elicitation}
+
+Describe the elicitation approach (e.g.~user-centred design).
+
+\subsection{Personas}\label{personas}
+
+Present the user personas, then a short user story for each.
+
+\begin{longtable}[]{@{}lllll@{}}
+\caption{Personas}\tabularnewline
+\toprule\noalign{}
+info / type & persona A & persona B & persona C & persona D \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+info / type & persona A & persona B & persona C & persona D \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+personal information & \ldots{} & \ldots{} & \ldots{} & \ldots{} \\
+occupation & \ldots{} & \ldots{} & \ldots{} & \ldots{} \\
+motivation & \ldots{} & \ldots{} & \ldots{} & \ldots{} \\
+\end{longtable}
+
+\section{Requirements}\label{requirements-1}
+
+Explain the split between functional and non-functional requirements.
+
+\subsection{Functional Requirements}\label{functional-requirements}
+
+List the requirements for each subsystem.
+
+\begin{itemize}
+\tightlist
+\item
+  User need.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    The system shall \ldots{}
+  \item
+    The system shall \ldots{}
+  \end{itemize}
+\end{itemize}
+
+\subsection{Non-Functional
+Requirements}\label{non-functional-requirements}
+
+List the quality requirements.
+
+\begin{itemize}
+\tightlist
+\item
+  Quality goal.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    The system should \ldots{}
+  \end{itemize}
+\end{itemize}
+
+\subsection{UML Diagram}\label{uml-diagram}
+
+Describe what the UML diagram shows.
+
+\begin{figure}
+\centering
+\fbox{\parbox[c][4cm][c]{0.8\linewidth}{\centering Placeholder: UML use-case diagram of the system\\[0.5em]\footnotesize\texttt{\detokenize{figures/uml-diagram.png}}}}
+\caption{Placeholder: UML use-case diagram of the system}
+\end{figure}
+
+\section{Requirements Validation}\label{requirements-validation}
+
+Describe how the requirements were validated.
+
+\section{Summary of the Chapter}\label{summary-of-the-chapter-1}
+
+Recap this chapter and introduce the next one.
+
+\chapter{Implementation}\label{implementation}
+
+Introduce the implementation decisions covered in this chapter.
+
+\section{Main Developing Tools for MT to
+Apollo}\label{main-developing-tools-for-mt-to-apollo}
+
+Describe the testing platform and build tools, and why the team chose
+them.
+
+\begin{figure}
+\centering
+\fbox{\parbox[c][4cm][c]{0.8\linewidth}{\centering Placeholder: Apollo architecture diagram\\[0.5em]\footnotesize\texttt{\detokenize{figures/apollo-architecture.png}}}}
+\caption{Placeholder: Apollo architecture diagram}
+\end{figure}
+
+\section{Environment configuration of
+Apollo}\label{environment-configuration-of-apollo}
+
+List the prerequisites for installing and running Apollo.
+
+\subsection{Linux System}\label{linux-system}
+
+Which OS version was chosen, and why.
+
+\subsection{NVIDIA GPU DRIVER}\label{nvidia-gpu-driver}
+
+Why the GPU driver is needed and how it was set up.
+
+\subsection{Docker}\label{docker}
+
+What Docker is and which version Apollo requires.
+
+\subsection{The NVIDIA Container
+Toolkit}\label{the-nvidia-container-toolkit}
+
+What the toolkit provides and why it was installed.
+
+\subsection{Download and Compile Apollo Source
+Code}\label{download-and-compile-apollo-source-code}
+
+Summarise the steps for cloning, building and verifying Apollo.
+
+\begin{figure}
+\centering
+\fbox{\parbox[c][4cm][c]{0.8\linewidth}{\centering Placeholder: terminal screenshot of a successful Apollo installation\\[0.5em]\footnotesize\texttt{\detokenize{figures/apollo-successful-installation.png}}}}
+\caption{Placeholder: terminal screenshot of a successful Apollo
+installation}
+\end{figure}
+
+\section{OER website Developing
+Tools}\label{oer-website-developing-tools}
+
+Describe the languages and database used to build the website.
+
+\section{Other Supporting Tools}\label{other-supporting-tools}
+
+Describe the prototyping, documentation, version control and diagram
+tools the team uses.
+
+\section{Software Engineering
+Methodologies}\label{software-engineering-methodologies}
+
+Describe the methodologies the team follows (e.g.~Agile, pair
+programming).
+
+\section{Summary of the Chapter}\label{summary-of-the-chapter-2}
+
+Recap this chapter and introduce the next one.
+
+\chapter{User Interface and
+Prototype}\label{user-interface-and-prototype}
+
+Introduce the prototyping approach and what this chapter shows.
+
+\section{User Interface}\label{user-interface}
+
+List the parts of the user interface covered below.
+
+\subsection{Front Page}\label{front-page}
+
+Describe the front page layout and its interactive elements.
+
+\begin{figure}
+\centering
+\fbox{\parbox[c][4cm][c]{0.8\linewidth}{\centering Placeholder: front page mock-up\\[0.5em]\footnotesize\texttt{\detokenize{figures/front-page.png}}}}
+\caption{Placeholder: front page mock-up}
+\end{figure}
+
+\subsection{Login and Registration
+Page}\label{login-and-registration-page}
+
+Describe the login and registration flow.
+
+\begin{figure}
+\centering
+\fbox{\parbox[c][4cm][c]{0.8\linewidth}{\centering Placeholder: account page mock-up\\[0.5em]\footnotesize\texttt{\detokenize{figures/account-page.png}}}}
+\caption{Placeholder: account page mock-up}
+\end{figure}
+
+\subsection{Search Box Page}\label{search-box-page}
+
+Describe the search function and its result pages.
+
+\begin{figure}
+\centering
+\fbox{\parbox[c][4cm][c]{0.8\linewidth}{\centering Placeholder: search result page mock-up\\[0.5em]\footnotesize\texttt{\detokenize{figures/search-result-page.png}}}}
+\caption{Placeholder: search result page mock-up}
+\end{figure}
+
+\section{Prototype}\label{prototype}
+
+List the prototype pages covered below.
+
+\subsection{Background Page}\label{background-page}
+
+Describe the background page.
+
+\begin{figure}
+\centering
+\fbox{\parbox[c][4cm][c]{0.8\linewidth}{\centering Placeholder: background page mock-up\\[0.5em]\footnotesize\texttt{\detokenize{figures/background-page.png}}}}
+\caption{Placeholder: background page mock-up}
+\end{figure}
+
+\subsection{Metamorphic Testing Page}\label{metamorphic-testing-page}
+
+Describe the testing pages, the interactive test visualisation and the
+quiz.
+
+\begin{figure}
+\centering
+\fbox{\parbox[c][4cm][c]{0.8\linewidth}{\centering Placeholder: testing page mock-up\\[0.5em]\footnotesize\texttt{\detokenize{figures/testing-page.png}}}}
+\caption{Placeholder: testing page mock-up}
+\end{figure}
+
+\begin{figure}
+\centering
+\fbox{\parbox[c][4cm][c]{0.8\linewidth}{\centering Placeholder: quiz page mock-up\\[0.5em]\footnotesize\texttt{\detokenize{figures/quiz-page.png}}}}
+\caption{Placeholder: quiz page mock-up}
+\end{figure}
+
+\subsection{Forum Page}\label{forum-page}
+
+Describe the forum's posting, commenting and liking features.
+
+\begin{figure}
+\centering
+\fbox{\parbox[c][4cm][c]{0.8\linewidth}{\centering Placeholder: forum page mock-up\\[0.5em]\footnotesize\texttt{\detokenize{figures/forum-page.png}}}}
+\caption{Placeholder: forum page mock-up}
+\end{figure}
+
+\subsection{Others Page}\label{others-page}
+
+Describe the team information and contact pages.
+
+\begin{figure}
+\centering
+\fbox{\parbox[c][4cm][c]{0.8\linewidth}{\centering Placeholder: team information page mock-up\\[0.5em]\footnotesize\texttt{\detokenize{figures/team-information-page.png}}}}
+\caption{Placeholder: team information page mock-up}
+\end{figure}
+
+\begin{figure}
+\centering
+\fbox{\parbox[c][4cm][c]{0.8\linewidth}{\centering Placeholder: contact us page mock-up\\[0.5em]\footnotesize\texttt{\detokenize{figures/contact-us-page.png}}}}
+\caption{Placeholder: contact us page mock-up}
+\end{figure}
+
+\section{Summary of the Chapter}\label{summary-of-the-chapter-3}
+
+Recap this chapter and outline the next steps for the prototype.
+
+\chapter{Time Plan}\label{time-plan}
+
+\section{Schedule}\label{schedule}
+
+Present the Gantt chart, then describe each work stream (preparation and
+design, implementation phases) and who is responsible.
+
+\begin{figure}
+\centering
+\fbox{\parbox[c][4cm][c]{0.8\linewidth}{\centering Placeholder: project Gantt chart\\[0.5em]\footnotesize\texttt{\detokenize{figures/project-gantt-chart.png}}}}
+\caption{Placeholder: project Gantt chart}
+\end{figure}
+
+\section{Deliverables}\label{deliverables}
+
+List the expected outputs:
+
+\begin{itemize}
+\tightlist
+\item
+  Deliverable one
+\item
+  Deliverable two
+\end{itemize}
+
+\section{Summary of the Chapter}\label{summary-of-the-chapter-4}
+
+Recap the timeline and the main deliverables.
+
+\chapter{Summary and Evaluation}\label{summary-and-evaluation}
+
+\section{Problems Encountered and
+Reflections}\label{problems-encountered-and-reflections}
+
+\subsection{Problems in Design}\label{problems-in-design}
+
+Describe the design and technical problems, how the team handled them,
+and what was learned.
+
+\begin{figure}
+\centering
+\fbox{\parbox[c][4cm][c]{0.8\linewidth}{\centering Placeholder: user-centred design process diagram\\[0.5em]\footnotesize\texttt{\detokenize{figures/ucd-process.png}}}}
+\caption{Placeholder: user-centred design process diagram}
+\end{figure}
+
+\subsection{Team Management Issues}\label{team-management-issues}
+
+Describe the team management problems and how the team overcame them.
+
+\section{Conclusion}\label{conclusion}
+
+Summarise what the team achieved this semester and the plan going
+forward.
+
+\chapter*{Bibliography}\label{bibliography}
+\addcontentsline{toc}{chapter}{Bibliography}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Author, A. \emph{Title of the web page.} \url{https://example.com},
+  Year. {[}Online; accessed DD-Month-YYYY{]}.
+\item
+  Author, A., and Author, B. Title of the article. \emph{Journal Name
+  1}, 2 (Year), 1--10. doi:10.0000/example.
+\end{enumerate}
+
+\appendix
+
+\chapter{Meeting Minutes}\label{meeting-minutes}
+
+\section{Meeting 1}\label{meeting-1}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Chairperson:} Name
+\item
+  \textbf{Recorder:} Name
+\item
+  \textbf{Date:} Month DD, YYYY, 9:00 a.m. - 9:50 a.m.
+\item
+  \textbf{Place:} Room or Online
+\end{itemize}
+
+Summarise the topics discussed, guidance for next week, and the next
+meeting's info.
+
+\section{Meeting 2}\label{meeting-2}
+
+Same structure as Meeting 1.
+
+\end{document}
