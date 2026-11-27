@@ -75,6 +75,17 @@
 % PDF bookmarks (the reader's sidebar outline): open at chapter level when the PDF opens.
 \hypersetup{bookmarksopen=true, bookmarksopenlevel=0}
 
+\ifXeTeX
+\special{pdf:trailerid [ <fc81fec58a45473123a8d7c43ab5f716> <fc81fec58a45473123a8d7c43ab5f716> ]}
+\fi
+\ifPDFTeX
+\pdftrailerid{}
+\pdftrailer{/ID [ <fc81fec58a45473123a8d7c43ab5f716> <fc81fec58a45473123a8d7c43ab5f716> ]}
+\fi
+\ifLuaTeX
+\pdfvariable trailerid {[ <fc81fec58a45473123a8d7c43ab5f716> <fc81fec58a45473123a8d7c43ab5f716> ]}
+\fi
+
 \title{COMP2043.GRP Interim Group Report}
 \author{}
 \date{}
