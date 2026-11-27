@@ -2,7 +2,7 @@
 
 ## Background Introduction
 
-Outline what this chapter covers. I'm a tester.
+Outline what this chapter covers.
 
 ## Development of Driverless Cars
 

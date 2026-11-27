@@ -34,7 +34,7 @@ variables:
   linestretch: 1.25
   # Clickable contents and cross-references, shown in blue instead of boxed.
   colorlinks: true
-  linkcolor: red
+  linkcolor: blue
   toccolor: blue
   urlcolor: blue
   citecolor: blue
