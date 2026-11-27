@@ -46,7 +46,7 @@ scripts/
   如果想让 `#` 对应 `\section`（文章式报告），设置 `top-level-division: section` 和 `documentclass: article`。
 - 不编号的章：`# Bibliography {-}`。
 - 附录：`# Meeting Minutes {.appendix}` 会变成 "Appendix A"，之后的各章也都用字母编号。
-- 图片：`![图注](figures/name.png)`，路径相对于报告目录。如果文件还不存在，PDF 里会显示一个带图注和路径的占位框，而不会编译失败。
+- 图片：`![图注](figures/name.png)`，路径相对于报告目录。如果文件还不存在，PDF 里会显示一个带图注和路径的占位框，而不会编译失败。图片会固定在 Markdown 里写的位置；如果想让 LaTeX 自动把图片挪到页面顶部或底部，在 `report/defaults.yaml` 里设置 `figure-placement: htbp`。
 - 表格：使用管道表格。在表格正上方写一行 `Table: 标题`，表格就会有带编号的标题。
 - 封面：编辑 `00-title-page.md` 里的 YAML。值里不要用 `<尖括号>`，Markdown 会把它当作 HTML 标签丢掉。
 

@@ -46,6 +46,10 @@ $after-header-includes.latex()$
 $hypersetup.latex()$
 % PDF bookmarks (the reader's sidebar outline): open at chapter level when the PDF opens.
 \hypersetup{bookmarksopen=true, bookmarksopenlevel=0}
+% Figure placement. The default H keeps each figure exactly where it is in the
+% Markdown; set figure-placement to e.g. htbp to let LaTeX float figures instead.
+\usepackage{float}
+\floatplacement{figure}{$if(figure-placement)$$figure-placement$$else$H$endif$}
 $if(pdf-trailer-id)$
 
 \ifXeTeX

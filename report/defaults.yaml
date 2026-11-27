@@ -40,3 +40,6 @@ variables:
   citecolor: blue
   # Number chapters, sections and subsections (x.y.z), but not deeper levels.
   secnumdepth: 2
+  # Where figures go. H = exactly where they appear in the Markdown.
+  # htbp = let LaTeX move them to the top/bottom of a page (classic LaTeX style).
+  figure-placement: H

@@ -46,7 +46,7 @@ scripts/
   To map `#` to `\section` instead (an article-style report), set `top-level-division: section` and `documentclass: article`.
 - Unnumbered chapter: `# Bibliography {-}`.
 - Appendix: `# Meeting Minutes {.appendix}` becomes "Appendix A", and every later chapter is lettered too.
-- Figures: `![Caption](figures/name.png)`. Paths are relative to the report directory. If the file doesn't exist yet, the PDF shows a framed placeholder with the caption and path instead of failing.
+- Figures: `![Caption](figures/name.png)`. Paths are relative to the report directory. If the file doesn't exist yet, the PDF shows a framed placeholder with the caption and path instead of failing. Figures stay exactly where they appear in the Markdown; set `figure-placement: htbp` in `report/defaults.yaml` to let LaTeX float them to the top or bottom of a page instead.
 - Tables: pipe tables. A `Table: Caption` line directly above a table gives it a numbered caption.
 - Title page: edit the YAML in `00-title-page.md`. Don't use `<angle brackets>` in values: Markdown treats them as HTML and drops them.
 
