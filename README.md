@@ -1,5 +1,7 @@
 # md-to-tex-report
 
+English | [简体中文](README-zh.md)
+
 A template repository for writing a report as Markdown chapters and building it into LaTeX and PDF, locally or with GitHub Actions.
 
 Each chapter is a Markdown file. Pandoc merges the files in name order, converts them to LaTeX with the template in `report/`, and XeLaTeX compiles the PDF. The PDF has a numbered, clickable table of contents and a bookmark outline for the PDF reader's sidebar.
