@@ -9,7 +9,7 @@
 ## 目录结构
 
 ```text
-examples/                    一份报告：带编号的 Markdown 章节
+markdown/                    一份报告：带编号的 Markdown 章节
   00-title-page.md           封面信息（只有 YAML）
   01-introduction.md ...     各章正文，按文件名顺序合并
   figures/                   各章引用的图片（可选）
@@ -23,7 +23,10 @@ report/
 scripts/
   build-report.sh            构建一个报告目录
   install-deps-ubuntu.sh     在 Ubuntu 上安装 pandoc 和 TeX Live（CI 使用）
-.github/workflows/build-report.yml
+.github/workflows/
+  build-report.yml           在 push、pull request 或手动运行时构建报告
+  template-sync.yml          把本模板的更新以 pull request 的形式同步过来
+.templatesyncignore          模板同步时永远不会覆盖的路径
 ```
 
 ## 编写章节
@@ -52,10 +55,10 @@ scripts/
 需要 [pandoc](https://pandoc.org) 3.x，以及带 XeLaTeX 和 latexmk 的 TeX 发行版（TeX Live 或 MiKTeX）。
 
 ```bash
-bash scripts/build-report.sh examples
+bash scripts/build-report.sh markdown
 ```
 
-这会生成 `examples/outputs/report.tex` 和 `examples/outputs/report.pdf`。设置 `REPORT_NAME=final` 可以把输出改名为 `final.tex` 和 `final.pdf`。
+这会生成 `markdown/outputs/report.tex` 和 `markdown/outputs/report.pdf`。设置 `REPORT_NAME=final` 可以把输出改名为 `final.tex` 和 `final.pdf`。
 
 ## GitHub Actions
 
@@ -68,6 +71,16 @@ bash scripts/build-report.sh examples
 每次运行都会把 `report.tex` 和 `report.pdf` 上传为名为 `report-<commit sha>` 的 artifact。push 到 `main` 时，还会把 `<dir>/outputs/` 提交回分支。不需要的话，设置 `COMMIT_OUTPUTS: "false"`。如果 `main` 开启了分支保护、不允许 Actions 推送，请关闭这个选项，或者允许 `github-actions[bot]` 推送。
 
 要在 push 时构建其他报告目录，修改 `REPORT_DIRS`（用空格分隔），并把这些目录加进 `paths` 过滤条件。
+
+## 获取模板更新
+
+用 **Use this template** 创建的仓库和模板没有共同的提交历史，模板更新不会自动同步过去。`.github/workflows/template-sync.yml` 借助 [actions-template-sync](https://github.com/AndreasAugustin/actions-template-sync) 来完成这件事：
+
+- 每周一，或在 Actions 页面手动运行时，它会检查模板有没有更新，有的话就开一个 pull request。在你合并这个 pull request 之前，什么都不会改动。
+- `.templatesyncignore` 里列出的路径永远不会被覆盖。默认是 `markdown/`，也就是你的报告内容。如果也想保留自己的 README，把文件里 `README.md` 那几行的注释去掉。如果你把 `markdown/` 改了名，也要同步修改这个文件。
+- 在模板仓库本身里，它什么都不做。
+- 默认 token 不能修改 `.github/workflows/` 下的文件，所以涉及 workflow 更新的同步会失败。要接收这类更新，请创建一个个人访问令牌（classic 令牌勾选 `workflow` 权限，或 fine-grained 令牌把 contents、pull requests、workflows 设为 write），并保存为仓库 secret `TEMPLATE_SYNC_PAT`。
+- 如果 Actions 无法在你的仓库里创建 pull request，请在 **Settings → Actions → General** 里勾选 **Allow GitHub Actions to create and approve pull requests**。
 
 ## 自定义
 

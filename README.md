@@ -9,7 +9,7 @@ Each chapter is a Markdown file. Pandoc merges the files in name order, converts
 ## Layout
 
 ```text
-examples/                    One report: numbered Markdown chapters
+markdown/                    One report: numbered Markdown chapters
   00-title-page.md           Title page metadata (YAML only)
   01-introduction.md ...     Chapters, merged in file-name order
   figures/                   Images referenced by the chapters (optional)
@@ -23,7 +23,10 @@ report/
 scripts/
   build-report.sh            Builds one report directory
   install-deps-ubuntu.sh     Installs pandoc and TeX Live on Ubuntu (used by CI)
-.github/workflows/build-report.yml
+.github/workflows/
+  build-report.yml           Builds the report on push, pull request or manual run
+  template-sync.yml          Opens pull requests with updates from this template
+.templatesyncignore          Paths template sync never overwrites
 ```
 
 ## Writing chapters
@@ -52,10 +55,10 @@ scripts/
 Needs [pandoc](https://pandoc.org) 3.x and a TeX distribution with XeLaTeX and latexmk (TeX Live or MiKTeX).
 
 ```bash
-bash scripts/build-report.sh examples
+bash scripts/build-report.sh markdown
 ```
 
-This writes `examples/outputs/report.tex` and `examples/outputs/report.pdf`. Set `REPORT_NAME=final` to name them `final.tex` and `final.pdf`.
+This writes `markdown/outputs/report.tex` and `markdown/outputs/report.pdf`. Set `REPORT_NAME=final` to name them `final.tex` and `final.pdf`.
 
 ## GitHub Actions
 
@@ -68,6 +71,16 @@ This writes `examples/outputs/report.tex` and `examples/outputs/report.pdf`. Set
 Every run uploads `report.tex` and `report.pdf` as an artifact named `report-<commit sha>`. On pushes to `main` it also commits `<dir>/outputs/` back to the branch. To turn that off, set `COMMIT_OUTPUTS: "false"`. If `main` is a protected branch that blocks pushes from Actions, turn it off or allow the `github-actions[bot]` to push.
 
 To build other report directories on push, change `REPORT_DIRS` (space-separated) and add the directories to the `paths` filters.
+
+## Getting template updates
+
+A repository created with **Use this template** doesn't share history with the template, so template updates don't reach it on their own. `.github/workflows/template-sync.yml` does this for you, using [actions-template-sync](https://github.com/AndreasAugustin/actions-template-sync):
+
+- Every Monday, or when you run it from the Actions tab, it checks the template for changes and opens a pull request with them. Nothing is merged until you merge the pull request.
+- It never touches the paths listed in `.templatesyncignore`. By default that's `markdown/`, your report content. Uncomment `README.md` there to keep your own README too. If you rename `markdown/`, update this file as well.
+- It does nothing in the template repository itself.
+- The default token can't change files under `.github/workflows/`, so a sync that updates a workflow will fail. To receive those updates, create a personal access token (classic with the `workflow` scope, or fine-grained with contents, pull requests and workflows set to write) and save it as the repository secret `TEMPLATE_SYNC_PAT`.
+- If Actions can't create pull requests in your repository, enable **Settings → Actions → General → Allow GitHub Actions to create and approve pull requests**.
 
 ## Customising
 

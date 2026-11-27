@@ -1,0 +1,41 @@
+name: Template sync
+
+# Runs in repositories created from this template. It checks the template
+# for updates and opens a pull request with them; nothing is merged automatically.
+# Paths listed in .templatesyncignore (your own report content) are never touched.
+
+on:
+  schedule:
+    # Every Monday at 00:00 UTC.
+    - cron: "0 0 * * 1"
+  # Manual run from the Actions tab.
+  workflow_dispatch:
+
+jobs:
+  sync:
+    # Do nothing in the template repository itself.
+    if: github.repository != 'Linnnnnn42/md-to-tex-report'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+        with:
+          # The default token can't change files under .github/workflows/.
+          # To also receive workflow updates, add a TEMPLATE_SYNC_PAT secret
+          # (classic PAT with the "workflow" scope, or fine-grained with
+          # contents, pull requests and workflows: write).
+          token: ${{ secrets.TEMPLATE_SYNC_PAT || github.token }}
+          persist-credentials: false
+
+      - name: Open a pull request with template updates
+        uses: AndreasAugustin/actions-template-sync@v2
+        with:
+          source_repo_path: Linnnnnn42/md-to-tex-report
+          upstream_branch: main
+          source_gh_token: ${{ secrets.TEMPLATE_SYNC_PAT || github.token }}
+          target_gh_token: ${{ secrets.TEMPLATE_SYNC_PAT || github.token }}
+          pr_title: "Sync updates from the md-to-tex-report template"
+          pr_labels: template-sync

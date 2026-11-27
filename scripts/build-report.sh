@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Build one report directory: merge its numbered Markdown chapters into LaTeX, then compile the PDF.
 #
-# Usage: scripts/build-report.sh [report-dir]   (default: examples)
+# Usage: scripts/build-report.sh [report-dir]   (default: markdown)
 #
 # Inputs : <report-dir>/NN-*.md, merged in file-name order (00-title-page.md, 01-introduction.md, ...)
 #          <report-dir>/report.yaml (optional) overrides settings from report/defaults.yaml
@@ -11,7 +11,7 @@
 set -euo pipefail
 
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-report_dir="${1:-examples}"
+report_dir="${1:-markdown}"
 report_name="${REPORT_NAME:-report}"
 
 if [[ ! -d "$report_dir" ]]; then

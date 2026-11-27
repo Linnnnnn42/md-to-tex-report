@@ -1,0 +1,9 @@
+# Paths that template sync never overwrites (git pathspecs, one per line).
+# Used by .github/workflows/template-sync.yml in repositories created from the template.
+
+# Your report content and its build outputs.
+markdown/
+
+# Uncomment to keep your own README instead of receiving template updates to it.
+# README.md
+# README-zh.md

@@ -5,7 +5,7 @@ on:
   push:
     branches: [main]
     paths:
-      - "examples/**"
+      - "markdown/**"
       - "report/**"
       - "scripts/**"
       - ".github/workflows/build-report.yml"
@@ -14,7 +14,7 @@ on:
   pull_request:
     branches: [main]
     paths:
-      - "examples/**"
+      - "markdown/**"
       - "report/**"
       - "scripts/**"
       - ".github/workflows/build-report.yml"
@@ -25,11 +25,11 @@ on:
       report_dirs:
         description: "Space-separated report directories to build"
         required: false
-        default: "examples"
+        default: "markdown"
 
 env:
   # Report directories built on push and pull_request. Each gets its own <dir>/outputs/.
-  REPORT_DIRS: ${{ inputs.report_dirs || 'examples' }}
+  REPORT_DIRS: ${{ inputs.report_dirs || 'markdown' }}
   PANDOC_VERSION: "3.11"
   # On pushes to main, commit <dir>/outputs/report.{tex,pdf} back to the branch.
   # Pull requests never commit; they only upload the artifact.
