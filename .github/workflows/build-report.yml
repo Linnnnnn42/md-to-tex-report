@@ -1,6 +1,5 @@
 name: Build report
 
-# FOR TEST workflow sync
 # When to build. Edit the branches and paths to choose your own triggers.
 on:
   push:
