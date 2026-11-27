@@ -74,16 +74,20 @@
   pdfcreator={LaTeX via pandoc}}
 % PDF bookmarks (the reader's sidebar outline): open at chapter level when the PDF opens.
 \hypersetup{bookmarksopen=true, bookmarksopenlevel=0}
+% Figure placement. The default H keeps each figure exactly where it is in the
+% Markdown; set figure-placement to e.g. htbp to let LaTeX float figures instead.
+\usepackage{float}
+\floatplacement{figure}{H}
 
 \ifXeTeX
-\special{pdf:trailerid [ <27247031f3b31ef13d3a9613f87c2eb6> <27247031f3b31ef13d3a9613f87c2eb6> ]}
+\special{pdf:trailerid [ <6b926ec1dd456a9b164317df738c9990> <6b926ec1dd456a9b164317df738c9990> ]}
 \fi
 \ifPDFTeX
 \pdftrailerid{}
-\pdftrailer{/ID [ <27247031f3b31ef13d3a9613f87c2eb6> <27247031f3b31ef13d3a9613f87c2eb6> ]}
+\pdftrailer{/ID [ <6b926ec1dd456a9b164317df738c9990> <6b926ec1dd456a9b164317df738c9990> ]}
 \fi
 \ifLuaTeX
-\pdfvariable trailerid {[ <27247031f3b31ef13d3a9613f87c2eb6> <27247031f3b31ef13d3a9613f87c2eb6> ]}
+\pdfvariable trailerid {[ <6b926ec1dd456a9b164317df738c9990> <6b926ec1dd456a9b164317df738c9990> ]}
 \fi
 
 \title{COMP2043.GRP Interim Group Report}
