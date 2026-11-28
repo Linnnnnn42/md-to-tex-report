@@ -25,6 +25,7 @@ toc-depth: 3
 filters:
   - ${.}/filters/missing-images.lua
   - ${.}/filters/appendix.lua
+  - ${.}/filters/numeric-citations.lua
 
 variables:
   documentclass: report
