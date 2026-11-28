@@ -80,14 +80,14 @@
 \floatplacement{figure}{H}
 
 \ifXeTeX
-\special{pdf:trailerid [ <6b926ec1dd456a9b164317df738c9990> <6b926ec1dd456a9b164317df738c9990> ]}
+\special{pdf:trailerid [ <588f9b105b259941974f4ac8475fc568> <588f9b105b259941974f4ac8475fc568> ]}
 \fi
 \ifPDFTeX
 \pdftrailerid{}
-\pdftrailer{/ID [ <6b926ec1dd456a9b164317df738c9990> <6b926ec1dd456a9b164317df738c9990> ]}
+\pdftrailer{/ID [ <588f9b105b259941974f4ac8475fc568> <588f9b105b259941974f4ac8475fc568> ]}
 \fi
 \ifLuaTeX
-\pdfvariable trailerid {[ <6b926ec1dd456a9b164317df738c9990> <6b926ec1dd456a9b164317df738c9990> ]}
+\pdfvariable trailerid {[ <588f9b105b259941974f4ac8475fc568> <588f9b105b259941974f4ac8475fc568> ]}
 \fi
 
 \title{COMP2043.GRP Interim Group Report}
@@ -210,7 +210,7 @@ Outline what this chapter covers.
 Cars}\label{development-of-driverless-cars}
 
 Summarise the industry's progress and key players, with citations
-{[}1{]}.
+\hyperref[ref-1]{{[}1{]}}.
 
 \section{Level of Autonomous Driving}\label{level-of-autonomous-driving}
 
@@ -582,11 +582,13 @@ forward.
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  Author, A. \emph{Title of the web page.} \url{https://example.com},
-  Year. {[}Online; accessed DD-Month-YYYY{]}.
+  \protect\phantomsection\label{ref-1}{}Author, A. \emph{Title of the
+  web page.} \url{https://example.com}, Year. {[}Online; accessed
+  DD-Month-YYYY{]}.
 \item
-  Author, A., and Author, B. Title of the article. \emph{Journal Name
-  1}, 2 (Year), 1--10. doi:10.0000/example.
+  \protect\phantomsection\label{ref-2}{}Author, A., and Author, B. Title
+  of the article. \emph{Journal Name 1}, 2 (Year), 1--10.
+  doi:10.0000/example.
 \end{enumerate}
 
 \appendix
