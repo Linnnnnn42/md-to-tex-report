@@ -23,6 +23,8 @@ table-of-contents: true
 toc-depth: 3
 
 filters:
+  # Runs first; only active for local previews (scripts/preview.*).
+  - ${.}/filters/preview.lua
   - ${.}/filters/missing-images.lua
   - ${.}/filters/appendix.lua
   - ${.}/filters/numeric-citations.lua

@@ -22,6 +22,7 @@ report/
   filters/appendix.lua       从标记了 {.appendix} 的标题开始进入附录
 scripts/
   build-report.sh            构建一个报告目录
+  preview.sh, preview.ps1    把整份报告（或选定章节）生成预览 PDF，保存到"文档"文件夹
   install-deps-ubuntu.sh     在 Ubuntu 上安装 pandoc 和 TeX Live（CI 使用）
 .github/workflows/
   build-report.yml           在 push、pull request 或手动运行时构建报告
@@ -51,15 +52,40 @@ scripts/
 - 表格：使用管道表格。在表格上方（或下方）写一行 `Table: 标题`，并和表格隔一个空行，表格就会有带编号的标题。如果没有空行，表格会被当成标题的一部分，无法渲染。分隔行里每列的短横线数量决定各列的相对宽度，例如 `| ---- | ------------ |` 表示 1:3。
 - 封面：编辑 `00-title-page.md` 里的 YAML。值里不要用 `<尖括号>`，Markdown 会把它当作 HTML 标签丢掉。
 
-## 本地构建
+## 环境要求
 
 需要 [pandoc](https://pandoc.org) 3.x，以及带 XeLaTeX 和 latexmk 的 TeX 发行版（TeX Live 或 MiKTeX）。
+
+## 本地构建
 
 ```bash
 bash scripts/build-report.sh markdown
 ```
 
 这会生成 `markdown/outputs/report.tex` 和 `markdown/outputs/report.pdf`。设置 `REPORT_NAME=final` 可以把输出改名为 `final.tex` 和 `final.pdf`。
+
+## 预览报告
+
+预览脚本把报告生成到"文档"文件夹，而不是仓库里，所以不会误提交。需要的工具和本地构建相同。不带参数时生成整份报告，和 CI 的结果一样：
+
+```bash
+# macOS、Linux、Windows Git Bash
+bash scripts/preview.sh
+```
+
+```powershell
+# Windows PowerShell 或 PowerShell 7
+.\scripts\preview.ps1
+```
+
+只想看其中几章时，加上 PDF 里显示的章号，例如 `bash scripts/preview.sh 2 5` 或 `.\scripts\preview.ps1 2 5`。
+
+- 章号写法：`2`、`2 5`、`2-4`；附录用字母，`A` 或 `A-B`；`all` 表示整份报告（默认）。跳过的章仍然计数，所以第 5 章在预览里还是 "Chapter 5"，图表编号也保持不变。
+- 预览部分章节时默认包含参考文献，这样引用仍然是链接。用 `--no-bib`（`-NoBib`）可以去掉。
+- 预览部分章节时不生成封面和目录，需要时加 `--title` / `--toc`（`-Title` / `-Toc`）。整份报告预览总是包含封面和目录。
+- PDF 保存为 `文档/md-to-tex-report-previews/<仓库名>/` 下的 `preview-all.pdf` 或 `preview-<章号>.pdf`，并自动打开。仓库里不会写入任何文件：中间文件放在临时文件夹里，用完就删除。用 `--out DIR`（`-Out DIR`）换输出文件夹，用 `--no-open`（`-NoOpen`）不自动打开。
+- 其他报告目录：`--dir DIR`（`-Dir DIR`）。
+- 如果 PowerShell 拒绝运行脚本，改用 `powershell -ExecutionPolicy Bypass -File scripts\preview.ps1`。
 
 ## GitHub Actions
 

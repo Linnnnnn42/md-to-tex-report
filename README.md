@@ -22,6 +22,7 @@ report/
   filters/appendix.lua       Starts the appendices at a heading marked {.appendix}
 scripts/
   build-report.sh            Builds one report directory
+  preview.sh, preview.ps1    Builds the report (or selected chapters) into a preview PDF in Documents
   install-deps-ubuntu.sh     Installs pandoc and TeX Live on Ubuntu (used by CI)
 .github/workflows/
   build-report.yml           Builds the report on push, pull request or manual run
@@ -51,15 +52,40 @@ scripts/
 - Tables: pipe tables. A `Table: Caption` line above (or below) a table, separated from it by a blank line, gives it a numbered caption. Without the blank line the table is read as part of the caption and isn't rendered. The number of dashes in each column of the separator row sets the relative column widths, e.g. `| ---- | ------------ |` for 1:3.
 - Title page: edit the YAML in `00-title-page.md`. Don't use `<angle brackets>` in values: Markdown treats them as HTML and drops them.
 
-## Building locally
+## Requirements
 
 Needs [pandoc](https://pandoc.org) 3.x and a TeX distribution with XeLaTeX and latexmk (TeX Live or MiKTeX).
+
+## Building locally
 
 ```bash
 bash scripts/build-report.sh markdown
 ```
 
 This writes `markdown/outputs/report.tex` and `markdown/outputs/report.pdf`. Set `REPORT_NAME=final` to name them `final.tex` and `final.pdf`.
+
+## Previewing the report
+
+The preview script builds the report into your Documents folder instead of the repository, so nothing can be committed by mistake. It needs the same tools as a local build. Without arguments it builds the whole report, the same as CI:
+
+```bash
+# macOS, Linux, Windows Git Bash
+bash scripts/preview.sh
+```
+
+```powershell
+# Windows PowerShell or PowerShell 7
+.\scripts\preview.ps1
+```
+
+To check only some chapters, add their numbers as they appear in the PDF, e.g. `bash scripts/preview.sh 2 5` or `.\scripts\preview.ps1 2 5`.
+
+- Chapters: `2`, `2 5`, `2-4`; appendices as letters, `A` or `A-B`; `all` for the whole report (the default). Skipped chapters still count, so chapter 5 stays "Chapter 5" and keeps its figure and table numbers.
+- When previewing chapters, the bibliography is included so citations still link. Leave it out with `--no-bib` (`-NoBib`).
+- Chapter previews have no title page or contents. Add them with `--title` / `--toc` (`-Title` / `-Toc`). The whole-report preview always has both.
+- The PDF is saved as `preview-all.pdf` or `preview-<chapters>.pdf` in `Documents/md-to-tex-report-previews/<repo name>/` and opened. Nothing is written to the repository: intermediate files go to a temporary folder that is deleted afterwards. Use `--out DIR` (`-Out DIR`) for another folder, and `--no-open` (`-NoOpen`) to skip opening it.
+- Other report directory: `--dir DIR` (`-Dir DIR`).
+- If PowerShell refuses to run the script, use `powershell -ExecutionPolicy Bypass -File scripts\preview.ps1`.
 
 ## GitHub Actions
 
